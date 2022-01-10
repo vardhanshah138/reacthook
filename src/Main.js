@@ -1,38 +1,51 @@
 import React,{useState,useEffect} from "react";
 import TempratureInput from './TempratureInput';
-import BoilingPoint from './BoilingPoint';
+//import {tocel,tofar} from './fun_temp'
 
 function Main(){
 
     const [scale,setScale] = useState('c');
-    const [Temprature,setTemprature] = useState(5)
-
+    const [Temprature,setTemprature] = useState(0)
+    const [Celsius,setCelsius] = useState(0)
+    const [Boil,setBoil] = useState(false)
+    
     function handleCelsiusChange(temprature){
         //console.log("Hello");
         setScale('c');
-        setTemprature(temprature)
-        //console.log("The Temprature is " + Temprature)
+        setTemprature(temprature);
+        setCelsius(temprature);
+        //console.log("The Temprature is " + Celsius)
     }
 
     function handleFarahaneitChange(temprature){
         setScale('f');
         setTemprature(temprature);
+        setCelsius(tofar(temprature));
     }
 
-    useEffect = ()=>{
-        
-    }
+    useEffect (()=>{
+        console.log("Temp changed");
+        (Celsius >= 100) ? setBoil(true) : setBoil(false);
+    },[Celsius])
+
+    const cel = (scale === 'c') ? Temprature: tocel(Temprature);
+    const far = (scale === 'f') ? Temprature: tofar(Temprature);
     
-    const cel = (scale === 'c') ? Temprature: Temprature;
-    const far = (scale === 'f') ? Temprature: Temprature;
     return(
     <>
     <TempratureInput scale="c" value = {cel} TempChange={handleCelsiusChange} />
     <TempratureInput scale="f" value = {far} TempChange= {handleFarahaneitChange}/>
-    <BoilingPoint />
+    <p> The Water Would {(Boil) ? " ": "not"} Boil.</p>
     </>
     )
+}
 
+function tocel(f){
+    return ((f - 32) * 5 / 9).toFixed(2);
+}
+
+function tofar(c){
+    return ((c * 9 / 5) + 32).toFixed(2);
 }
 
 export default Main;
