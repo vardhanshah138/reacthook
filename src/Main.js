@@ -1,6 +1,6 @@
 import React,{useState,useEffect} from "react";
 import TempratureInput from './TempratureInput';
-//import {tocel,tofar} from './fun_temp'
+import {tocel,tofar} from './fun_temp'
 
 function Main(){
 
@@ -24,7 +24,7 @@ function Main(){
     }
 
     useEffect (()=>{
-        console.log("Temp changed");
+        //console.log("Temp changed");
         (Celsius >= 100) ? setBoil(true) : setBoil(false);
     },[Celsius])
 
@@ -38,14 +38,6 @@ function Main(){
     <p> The Water Would {(Boil) ? " ": "not"} Boil.</p>
     </>
     )
-}
-
-function tocel(f){
-    return ((f - 32) * 5 / 9).toFixed(2);
-}
-
-function tofar(c){
-    return ((c * 9 / 5) + 32).toFixed(2);
 }
 
 export default Main;
